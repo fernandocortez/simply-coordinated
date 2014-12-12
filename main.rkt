@@ -17,19 +17,12 @@
        (label "&File")
        (parent menu-bar)))
 
-(define new-canvas
+(define clear-canvas
   (new menu-item%
-       (label "&New")
+       (label "&Clear")
        (parent file-menu)
        (callback (lambda (menu event)
-                   (void)))))
-
-(define export-canvas
-  (new menu-item%
-       (label "&Export")
-       (parent file-menu)
-       (callback (lambda (menu event)
-                   (void)))))
+                   (send dc clear)))))
 
 (define help-menu
   (new menu%
@@ -71,13 +64,19 @@
   (new tab-panel%
        (parent editor-panel)
        (stretchable-height #f)
-       (choices (list "&Shapes "
-                      "&Text "))
+       (choices (list "&Rectangle"
+                      "&Square"
+                      "&Ellipse"
+                      "&Circle"
+                      "&Line"))
        (callback (lambda (tab-panel event)
                    (void)))))
 
 (define canvas
   (new canvas%
        (parent editor-panel)))
+
+(define dc
+  (send canvas get-dc))
 
 (send frame show #t)
